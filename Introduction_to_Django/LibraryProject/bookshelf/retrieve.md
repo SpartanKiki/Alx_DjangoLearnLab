@@ -1,3 +1,4 @@
-# Retrieve all books
-Book.objects.all()
-# Expected output: <QuerySet [<Book: Book object (1)>]>
+# Retrieve the book we created
+book = Book.objects.get(title="1984")
+book
+# Expected output: <Book: Book object (1)>
