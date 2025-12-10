@@ -1,33 +1,33 @@
 from django.db import models
 
-# Author Model
+# Author model
 class Author(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
-# Book Model
+# Book model
 class Book(models.Model):
-    title = models.CharField(max_length=100)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
-    publication_year = models.IntegerField(null=True, blank=True)
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    publication_year = models.IntegerField(null=True, blank=True)  # optional field
 
     def __str__(self):
-        return f"{self.title} by {self.author.name}"
+        return self.title
 
-# Library Model
+# Library model
 class Library(models.Model):
-    name = models.CharField(max_length=100)
-    books = models.ManyToManyField(Book, related_name='libraries')
+    name = models.CharField(max_length=255)
+    books = models.ManyToManyField(Book, blank=True)
 
     def __str__(self):
         return self.name
 
-# Librarian Model
+# Librarian model
 class Librarian(models.Model):
-    name = models.CharField(max_length=100)
-    library = models.OneToOneField(Library, on_delete=models.CASCADE, related_name='librarian')
+    name = models.CharField(max_length=255)
+    library = models.OneToOneField(Library, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} ({self.library.name})"
+        return self.name
