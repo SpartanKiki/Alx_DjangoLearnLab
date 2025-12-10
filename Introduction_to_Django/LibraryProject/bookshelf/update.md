@@ -1,9 +1,5 @@
-
-**update.md**
-```markdown
-# Update the Book title
-
-```python
-book1.title = "Nineteen Eighty-Four"
-book1.save()
-Book.objects.all()
+# Update the book title
+book = Book.objects.get(id=1)
+book.title = "Nineteen Eighty-Four"
+book.save()
+# Expected output: None (but the title is updated)

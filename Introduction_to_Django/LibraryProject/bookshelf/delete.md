@@ -1,8 +1,4 @@
-
-**delete.md**
-```markdown
-# Delete the Book instance
-
-```python
-book1.delete()
-Book.objects.all()
+# Delete the book
+book = Book.objects.get(id=1)
+book.delete()
+# Expected output: (1, {'bookshelf.Book': 1})
