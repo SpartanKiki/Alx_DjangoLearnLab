@@ -38,13 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'relationship_app',
-    'users',
-    'LibraryProject.bookshelf.apps.BookshelfConfig',
+    'LibraryProject.bookshelf',
 
 
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 
 
