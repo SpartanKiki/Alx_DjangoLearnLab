@@ -1,82 +1,31 @@
-"""
-api/views.py
-DRF Generic Views using ALX expected names
-"""
-
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .models import Book, Author
-from .serializers import BookSerializer, AuthorSerializer
+from .models import Book
+from .serializers import BookSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
-# ----------------------
-# BOOK VIEWS
-# ----------------------
-
+# List & Detail (read-only for unauthenticated)
 class BookListView(generics.ListAPIView):
-    """
-    Retrieve all books
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class BookDetailView(generics.RetrieveAPIView):
-    """
-    Retrieve a single book by ID
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# Create, Update, Delete (authenticated only)
 class BookCreateView(generics.CreateAPIView):
-    """
-    Create a new book
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 class BookUpdateView(generics.UpdateAPIView):
-    """
-    Update an existing book
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 class BookDeleteView(generics.DestroyAPIView):
-    """
-    Delete a book
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-# ----------------------
-# AUTHOR VIEWS
-# ----------------------
-
-class AuthorListView(generics.ListAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class AuthorDetailView(generics.RetrieveAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class AuthorCreateView(generics.CreateAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class AuthorUpdateView(generics.UpdateAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class AuthorDeleteView(generics.DestroyAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
