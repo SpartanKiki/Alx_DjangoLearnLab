@@ -32,3 +32,20 @@ This project demonstrates advanced Django features with a focus on security, aut
 ```bash
 python manage.py migrate
 python manage.py runserver
+
+## HTTPS & Security Review
+
+This project enforces HTTPS and secure communication using Django's
+recommended security settings.
+
+### Implemented Measures:
+- Automatic redirection from HTTP to HTTPS
+- HTTP Strict Transport Security (HSTS)
+- Secure session and CSRF cookies
+- Protection against clickjacking (X-Frame-Options)
+- Protection against MIME sniffing
+- Browser XSS filtering enabled
+
+### Benefit:
+These configurations protect user data in transit and reduce the risk
+of common web attacks such as XSS, CSRF, and clickjacking.
