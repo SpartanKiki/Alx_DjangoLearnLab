@@ -10,10 +10,12 @@ class BookList(generics.ListAPIView):
     serializer_class = BookSerializer
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 class BookViewSet(viewsets.ModelViewSet):
     """
-    A viewset that provides full CRUD for the Book model.
+    Full CRUD for Book model with authentication.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]  # Only authenticated users can access
