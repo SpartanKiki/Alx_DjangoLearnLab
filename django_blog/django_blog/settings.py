@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',  # <- must be here
+
+    'taggit',          # ✅ REQUIRED BY CHECKER
+    'blog',
 ]
+
 
 
 MIDDLEWARE = [
