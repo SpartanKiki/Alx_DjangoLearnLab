@@ -53,13 +53,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_blog.urls'
 
+# settings.py
+
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # <--- this is required
+        'DIRS': [BASE_DIR / 'blog/templates'],  # your templates directory
+        'APP_DIRS': True,  # looks in app/templates as well
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -67,6 +70,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'django_blog.wsgi.application'
 
@@ -121,20 +125,5 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'blog/static',
-]
-
-TEMPLATES = [
-    {
-        'DIRS': [BASE_DIR / 'blog/templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
 ]
 
