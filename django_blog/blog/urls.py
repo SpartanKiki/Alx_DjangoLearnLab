@@ -15,3 +15,12 @@ urlpatterns = [
 
     path('search/', views.post_search, name='post-search'),
 ]
+# blog/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # ... your existing paths ...
+    path('search/', views.search_posts, name='search-posts'),
+    path('tags/<str:tag_name>/', views.search_posts, name='posts-by-tag'),
+]

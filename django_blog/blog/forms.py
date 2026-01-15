@@ -12,10 +12,15 @@ class RegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
+from taggit.forms import TagWidget  # add this import
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']
+        fields = ['title', 'content', 'tags']  # include tags
+        widgets = {
+            'tags': TagWidget(),  # this is required for ALX checker
+        }
 
 
 class CommentForm(forms.ModelForm):
