@@ -54,3 +54,18 @@ class FeedView(generics.ListAPIView):
         return Post.objects.filter(
             author__in=following_users
         ).order_by('-created_at')
+from rest_framework import generics, permissions
+from django.contrib.auth import get_user_model
+from .models import Post
+from .serializers import PostSerializer
+
+User = get_user_model()
+
+
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        following_users = self.request.user.following.all()
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
