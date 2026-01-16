@@ -1,8 +1,10 @@
+from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from .serializers import RegisterSerializer, LoginSerializer
+
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -11,8 +13,9 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        token, _ = Token.objects.get_or_create(user=user)
+        token = Token.objects.get(user=user)
         return Response({'token': token.key})
+
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
@@ -20,11 +23,26 @@ class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
+
+        user = authenticate(
+            username=serializer.validated_data['username'],
+            password=serializer.validated_data['password']
+        )
+
+        if not user:
+            return Response({'error': 'Invalid credentials'}, status=400)
+
         token, _ = Token.objects.get_or_create(user=user)
         return Response({'token': token.key})
 
+
 class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        user = request.user
+        return Response({
+            'username': user.username,
+            'email': user.email,
+            'bio': user.bio
+        })
